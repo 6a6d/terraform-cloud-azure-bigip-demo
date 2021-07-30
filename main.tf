@@ -1,22 +1,21 @@
 # arbitrary comment for commit
 # Configure the Microsoft Azure Provider
-provider "azurerm" {
-    features {}    
-}
-
 terraform {
-    required_version = "~> 0.12.26"
     required_providers {
         azurerm = "~> 2.15.0"
     }
     backend "remote" {
-        organization = "f5-mjmenger"
+        organization = "f5-joshuamurray"
         workspaces {
-            name = "my-workspace-name"
+            name = "terraform-cloud-azure-bigip-demo"
         }
     }
 }
-# Create a resource group 
+
+provider "azurerm" {
+    features {}
+}
+# Create a resource group
 resource "azurerm_resource_group" "main" {
     name     = format("%s-resourcegroup-%s",var.prefix,random_id.randomId.hex)
     location = var.specification[var.specification_name]["region"]
